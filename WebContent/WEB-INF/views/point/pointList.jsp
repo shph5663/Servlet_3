@@ -74,6 +74,9 @@
 					</tr>
 					</c:forEach>
 				</table>
+				
+				<a href= "./pointAdd" class="btn btn-primary">point add</a>
+				
 			</div>	
 	</div>
 		

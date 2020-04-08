@@ -73,7 +73,7 @@
 					</tr>
 				</table>
 				
-				<a href="./pointDelete" class="btn btn-danger">Delete</a>
+				<a href="./pointDelete?num=${dto.num}" class="btn btn-danger">Delete</a>
 			</div>
 	</div>
 	
