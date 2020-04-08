@@ -17,9 +17,13 @@
 ## URL 주소			/		JSP			/ Method
 ### /WEB-INF/views/point/**
 - /point/pointList  /   pointList.jsp	/ GET
+
 - /point/pointAdd	/	pointAdd.jsp	/ GET
 - /point/pointAdd	/					/ POST
+
 - /point/pointSelect/	pointSelect.jsp	/ GET
+
 - /point/pointMod	/	pointMod.jsp	/ GET
 - /point/pointMod	/					/ POST
-- /point?pointDelete/					/ GET
+
+- /point/pointDelete/					/ GET

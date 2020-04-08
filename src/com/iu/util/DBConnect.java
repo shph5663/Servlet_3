@@ -17,10 +17,24 @@ public class DBConnect {
 	
 	public static Connection getConnect() throws Exception {
 		//1. 로그인 정보 4가지
+		
+		//logon deny (실패)
+		//1. id/pw 틀렸을 경우
+		//2. db에 해당 유저가 생성되지 않은 경우
+		//3. 유저의 권한이 적용된지 않은 경우
 		String user="user02";
 		String password="user02";
+		
+		//not connect
+		//1. ip,port,xe 정보가 틀린경우
+		//2. 물리적으로 연결이 안되거나, 서버가 종료된 경우
+		//3. listener문제 DB재시동
 		String url ="jdbc:oracle:thin:@localhost:1521:xe";
 		String driver ="oracle.jdbc.driver.OracleDriver";
+		
+		//class not found
+		//1. driver명이 틀린 경우
+		//2. jdbc(ojdbc6.jar)가 없는 경우
 		
 		//2. 드라이버를 메모리에 로딩
 		Class.forName(driver);

@@ -1,6 +1,7 @@
 package com.iu.point;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,12 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/PointController")
 public class PointController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private PointService pointService;   
     /**
      * @see HttpServlet#HttpServlet()
      */
     public PointController() {
         super();
+        pointService = new PointService();
         // TODO Auto-generated constructor stub
     }
 
@@ -44,9 +46,13 @@ public class PointController extends HttpServlet {
 		//URL(path)를 담을 변수
 		String path ="";
 		
+		try {
 		if (command.equals("/pointList")) {
+				ArrayList<PointDTO> ar = pointService.pointList();
+				request.setAttribute("list" , ar);
 			check=true;
 			path="../WEB-INF/views/point/pointList.jsp";
+		
 		}else if(command.equals("/pointAdd")){
 			if (method.equals("POST")) {
 				//데이터를 db에 저장하는 코드
@@ -54,7 +60,7 @@ public class PointController extends HttpServlet {
 				check=true;
 				path="../WEB-INF/views/point/pointAdd.jsp";
 			}
-	
+		
 		}else if (command.equals("/pointMod")) {
 			if (method.equals("POST")) {
 				//데이터를 db에 저장하는 코드
@@ -62,13 +68,30 @@ public class PointController extends HttpServlet {
 				check=true;
 				path="../WEB-INF/views/point/pointMod.jsp";
 			}
+		
 		}else if (command.equals("/pointSelect")) {
+			
+			int num = Integer.parseInt(request.getParameter("num"));
+			
+			PointDTO pointDTO = pointService.pointSelect(num);
+			
+			request.setAttribute("dto", pointDTO);
+			
 			check=true;
 			path="../WEB-INF/views/point/pointSelect.jsp";
+				
 		}else if (command.equals("/pointDelete")) {
-
+			int num = Integer.parseInt(request.getParameter("num"));
+			
+			int result = pointService.pointDelete(num);
+			check=false;
+			path="./pointList";
+			
 		}else {
 
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		//
