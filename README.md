@@ -15,7 +15,7 @@
 - pointMod.jsp		: point 수정 폼
 
 ## URL 주소			/		JSP			/ Method
-### /WEB_INF/views/point/**
+### /WEB-INF/views/point/**
 - /point/pointList  /   pointList.jsp	/ GET
 - /point/pointAdd	/	pointAdd.jsp	/ GET
 - /point/pointAdd	/					/ POST
