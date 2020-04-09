@@ -65,8 +65,15 @@ public class PointController extends HttpServlet {
 				
 				int result = pointService.pointAdd(pointDTO);
 				
-				check = false;
-				path="./pointList";
+				String msg = "등록실패";
+				if (result>0) {
+					msg = "등록성공";
+				}
+				
+				request.setAttribute("result", msg);
+				request.setAttribute("path", "./pointList");
+				check = true;
+				path="../WEB-INF/views/common/result.jsp";
 			} else {
 				check=true;
 				path="../WEB-INF/views/point/pointAdd.jsp";
@@ -83,8 +90,17 @@ public class PointController extends HttpServlet {
 				pointDTO.setNum(Integer.parseInt(request.getParameter("num")));
 				int result = pointService.pointUpdate(pointDTO);
 				
-				check = false;
-				path="./pointSelect?num="+pointDTO.getNum();
+				check = true;
+				String msg = "수정실패";
+				if (result>0) {
+					msg = "수정성공";
+					request.setAttribute("path", "./pointSelect?num="+pointDTO.getNum());
+				} else {
+					request.setAttribute("path", "./pointList");
+				}
+				
+				request.setAttribute("result", msg);
+				path="../WEB-INF/views/common/result.jsp";
 				
 			} else {
 				check=true;
