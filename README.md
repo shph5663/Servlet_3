@@ -28,4 +28,7 @@
 
 - /point/pointDelete/					/ GET
 
-# 학원 추가
+<<<<<<< HEAD
+
+# home add 1
+
