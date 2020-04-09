@@ -63,8 +63,9 @@ public class PointController extends HttpServlet {
 				pointDTO.setEng(Integer.parseInt(request.getParameter("eng")));
 				pointDTO.setMath(Integer.parseInt(request.getParameter("math")));
 				
-				pointService.pointAdd(pointDTO);
+				int result = pointService.pointAdd(pointDTO);
 				
+				check = false;
 				path="./pointList";
 			} else {
 				check=true;
@@ -74,8 +75,22 @@ public class PointController extends HttpServlet {
 		}else if (command.equals("/pointMod")) {
 			if (method.equals("POST")) {
 				//데이터를 db에 저장하는 코드
+				
+				PointDTO pointDTO = new PointDTO();
+				pointDTO.setKor(Integer.parseInt(request.getParameter("kor")));
+				pointDTO.setEng(Integer.parseInt(request.getParameter("eng")));
+				pointDTO.setMath(Integer.parseInt(request.getParameter("math")));
+				pointDTO.setNum(Integer.parseInt(request.getParameter("num")));
+				int result = pointService.pointUpdate(pointDTO);
+				
+				check = false;
+				path="./pointSelect?num="+pointDTO.getNum();
+				
 			} else {
 				check=true;
+				int num = Integer.parseInt(request.getParameter("num"));
+				PointDTO pointDTO = pointService.pointSelect(num);
+				request.setAttribute("dto", pointDTO);
 				path="../WEB-INF/views/point/pointMod.jsp";
 			}
 		

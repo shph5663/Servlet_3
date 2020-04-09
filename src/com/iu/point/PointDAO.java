@@ -11,6 +11,32 @@ import com.iu.util.DBConnect;
 public class PointDAO {
 	//DAO (data access object)
 	
+	//5. Update
+	public int pointUpdate(PointDTO pointDTO) throws Exception{
+		//1. db연결
+		Connection con = DBConnect.getConnect();
+		//2. sql문 작성
+		String sql = "Update point set kor=?,eng=?,math=?,total=?,avg=? where num=?";
+		//3. 미리전송
+		PreparedStatement st = con.prepareStatement(sql);
+		//4. ?값 있으면 세팅
+		st.setInt(1, pointDTO.getKor());
+		st.setInt(2, pointDTO.getEng());
+		st.setInt(3, pointDTO.getMath());
+		st.setInt(4, pointDTO.getTotal());
+		st.setDouble(5, pointDTO.getAvg());
+		st.setInt(6, pointDTO.getNum());
+		//5. 최종 전송후 결과 처리
+		int result = st.executeUpdate();
+				
+		//6. 자원 해제
+					
+		st.close();
+		con.close();
+						
+		return result;
+	}
+	
 	//4. Add
 	public int pointAdd(PointDTO pointDTO) throws Exception{
 		//1. db연결

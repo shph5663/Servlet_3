@@ -48,7 +48,7 @@
 
 	<div class="container">
   <h2>Point Input</h2>
-  <form action="./pointAdd" method="post">
+  <form action="./pointAdd" method="post"><!-- DB에 보내기 -->
     <div class="form-group">
       <label for="name">Name:</label>
       <input type="text" class="form-control" id="name" placeholder="Name" name="name">
@@ -74,7 +74,7 @@
       <input type="text" class="form-control" id="math" placeholder="Math" name="math">
     </div>
    
-    
+ 	<input type="submit" class="btn btn-default" value="Submit">
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </div>
