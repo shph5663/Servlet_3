@@ -27,8 +27,3 @@
 - /point/pointMod	/					/ POST
 
 - /point/pointDelete/					/ GET
-
-<<<<<<< HEAD
-
-# home add 1
-
