@@ -9,6 +9,53 @@ import com.iu.util.DBConnect;
 
 public class MemberDAO {
 	
+	//update
+	//5. Update
+		public int memberUpdate(MemberDTO memberDTO) throws Exception{
+			//1. db연결
+			Connection con = DBConnect.getConnect();
+			//2. sql문 작성
+			String sql = "Update member set email=?,phone=?,age=? where id=?";
+			//3. 미리전송
+			PreparedStatement st = con.prepareStatement(sql);
+			//4. ?값 있으면 세팅
+			st.setString(1, memberDTO.getEmail());
+			st.setString(2, memberDTO.getPhone());
+			st.setInt(3, memberDTO.getAge());
+			st.setString(4, memberDTO.getId());
+
+			//5. 최종 전송후 결과 처리
+			int result = st.executeUpdate();
+					
+			//6. 자원 해제
+						
+			st.close();
+			con.close();
+							
+			return result;
+		}
+	
+	//delete
+	
+	public int memberDelete(MemberDTO memberDTO) throws Exception{
+		
+		//1. db연결
+		Connection con = DBConnect.getConnect();
+		//2. sql문 작성
+		String sql = "delete member where id = ?";
+		//3. 미리전송
+		PreparedStatement st = con.prepareStatement(sql);
+		//4. ?값 있으면 세팅
+		st.setString(1, memberDTO.getId());
+		//5. 최종 전송후 결과 처리
+		int result = st.executeUpdate();
+				
+		st.close();
+		con.close();
+				
+		return result;
+	}
+	
 	public int memberJoin(MemberDTO memberDTO)throws Exception{
 		int result=0;
 		Connection con = DBConnect.getConnect();
@@ -61,7 +108,7 @@ public class MemberDAO {
 		return memberDTO;
 	}
 	
-	public MemberDTO memberPage() throws Exception{
+//	public MemberDTO memberPage() throws Exception{
 		//1. db연결
 //				Connection con = DBConnect.getConnect();
 //				//2. sql문 작성

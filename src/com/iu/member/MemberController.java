@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 /**
  * Servlet implementation class MemberController
@@ -64,7 +65,7 @@ public class MemberController extends HttpServlet {
 					path = "../";
 				}else {
 					path="../WEB-INF/views/member/memberJoin.jsp";
-				}
+				}							
 			}else if(command.equals("/memberLogin")) {
 				if(method.equals("POST")) {
 					MemberDTO memberDTO = new MemberDTO();
@@ -94,7 +95,40 @@ public class MemberController extends HttpServlet {
 						check=false;
 						path="../";
 			}else if (command.equals("/memberPage")) {
-
+				path="../WEB-INF/views/member/memberPage.jsp";	
+				
+			}else if (command.equals("/memberDelete")) {
+				HttpSession session = request.getSession();
+				MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+				int result = memberService.memberDelete(memberDTO);
+				
+				if (result>0) {
+					session.invalidate();
+				}
+				
+				check=false;
+				path = "../";
+				
+			}else if (command.equals("/memberUpdate")) {
+				if (method.equals("POST")) {//포스트면 디비들러서
+					HttpSession session = request.getSession();
+					MemberDTO memberDTO = new MemberDTO();
+					memberDTO.setId(request.getParameter("id"));
+					memberDTO.setEmail(request.getParameter("email"));
+					memberDTO.setPhone(request.getParameter("phone"));
+					memberDTO.setAge(Integer.parseInt(request.getParameter("age")));
+					int result = memberService.memberUpdate(memberDTO);
+					
+					if (result>0) {
+						session.setAttribute("member", memberDTO);
+					}
+					
+					check=false;
+					path="../";
+					
+				}else {//아니면 그냥 폼으로
+					path="../WEB-INF/views/member/memberUpdate.jsp";
+				}
 			}
 			
 			
